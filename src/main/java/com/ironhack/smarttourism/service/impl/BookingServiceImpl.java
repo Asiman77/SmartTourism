@@ -1,4 +1,4 @@
 package com.ironhack.smarttourism.service.impl;
 
-public class BookingServiceImpl {
+public interface BookingServiceImpl {
 }

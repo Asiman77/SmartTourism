@@ -1,4 +1,4 @@
 package com.ironhack.smarttourism.repository;
 
-public class TourPAckageRepository {
+public class TourPackageRepository {
 }

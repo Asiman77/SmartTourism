@@ -1,4 +1,4 @@
-package com.ironhack.smarttourism.common.response;
+package com.ironhack.smarttourism.common;
 
 public class ApiResponse {
 }
