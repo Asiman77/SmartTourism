@@ -3,6 +3,7 @@ package com.ironhack.smarttourism.dto.request;
 import com.ironhack.smarttourism.entity.enums.Season;
 import jakarta.validation.constraints.*;
 import lombok.*;
+//sdgsdg
 
 @Getter
 @Setter
