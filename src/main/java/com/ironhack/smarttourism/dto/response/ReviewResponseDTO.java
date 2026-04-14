@@ -2,7 +2,6 @@ package com.ironhack.smarttourism.dto.response;
 
 import lombok.*;
 import java.time.LocalDateTime;
-//sdgsdg
 
 @Getter
 @Setter

@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TourPackageResponseDTO {
-//sdgsdg
 
     private Long id;
     private String title;

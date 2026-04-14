@@ -4,7 +4,7 @@ import com.ironhack.smarttourism.entity.enums.TourStatus;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import java.math.BigDecimal;
-//sdgsdg
+
 
 @Getter
 @Setter

@@ -2,7 +2,6 @@ package com.ironhack.smarttourism.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-//sdgsdg
 
 @Getter
 @Setter
