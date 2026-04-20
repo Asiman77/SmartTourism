@@ -3,9 +3,13 @@ package com.ironhack.smarttourism.service;
 import com.ironhack.smarttourism.dto.request.AuthRequest;
 import com.ironhack.smarttourism.dto.request.RegisterRequest;
 import com.ironhack.smarttourism.dto.response.AuthResponse;
+import com.ironhack.smarttourism.entity.Agency;
 import com.ironhack.smarttourism.entity.Token;
 import com.ironhack.smarttourism.entity.User;
+import com.ironhack.smarttourism.entity.enums.AgencyStatus;
+import com.ironhack.smarttourism.entity.enums.RoleName;
 import com.ironhack.smarttourism.entity.enums.TokenType; // Enum-un doğru yerdə olduğundan əmin ol
+import com.ironhack.smarttourism.repository.AgencyRepository;
 import com.ironhack.smarttourism.repository.TokenRepository;
 import com.ironhack.smarttourism.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
+    private final AgencyRepository agencyRepository;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -33,8 +38,27 @@ public class AuthenticationService {
         user.setRole(request.role());
 
         var savedUser = userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
 
+        if (request.role() == RoleName.AGENCY) {
+
+            if (request.agencyName() == null || request.agencyAddress() == null) {
+                throw new RuntimeException("Agency məlumatları tam deyil");
+            }
+
+            Agency agency = new Agency();
+            agency.setUser(savedUser);
+            agency.setStatus(AgencyStatus.PENDING);
+
+            agency.setName(request.agencyName());
+            agency.setEmail(savedUser.getEmail());
+            agency.setAddress(request.agencyAddress());
+            agency.setPhone(request.agencyPhone());
+            agency.setDescription(request.description());
+
+            agencyRepository.save(agency);
+        }
+
+        var jwtToken = jwtService.generateToken(savedUser);
         saveUserToken(savedUser, jwtToken);
 
         return new AuthResponse(jwtToken);
@@ -49,12 +73,18 @@ public class AuthenticationService {
         var user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("İstifadəçi tapılmadı"));
 
+        if (user.getRole() == RoleName.AGENCY) {
+            Agency agency = agencyRepository.findByUser(user)
+                    .orElseThrow(() -> new RuntimeException("Agency tapılmadı"));
+
+            if (agency.getStatus() != AgencyStatus.APPROVED) {
+                throw new RuntimeException("Agency təsdiqlənməyib");
+            }
+        }
+
         var jwtToken = jwtService.generateToken(user);
 
-        // Əvvəlki bütün aktiv tokenləri ləğv edirik (Revoke)
         revokeAllUserTokens(user);
-
-        // Yeni tokeni bazaya yazırıq
         saveUserToken(user, jwtToken);
 
         return new AuthResponse(jwtToken);

@@ -1,6 +1,7 @@
 package com.ironhack.smarttourism.entity;
 
 
+import com.ironhack.smarttourism.entity.enums.AgencyStatus;
 import com.ironhack.smarttourism.entity.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,9 +34,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Column(length = 20)
     private String phone;
-
-    @Column(nullable = false)
-    private boolean isActive = true;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
