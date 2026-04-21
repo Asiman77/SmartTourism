@@ -16,7 +16,7 @@ public class AgencyResponseDTO {
     private String email;
     private String phone;
     private String address;
-    private AgencyStatus status;
+    private String status;
     private Long userId;
     private String userFullName;
     private LocalDateTime createdAt;
