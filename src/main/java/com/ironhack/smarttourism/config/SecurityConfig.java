@@ -30,10 +30,18 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Login və Register hamı üçün açıqdır
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Admin endpointləri
-                        .requestMatchers("/api/agency/**").hasAnyRole("ADMIN", "AGENCY") // Agentlik funksiyaları
-                        .anyRequest().authenticated() // Qalan hər şey üçün giriş tələb olunur
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/agency/**").hasAnyRole("ADMIN", "AGENCY")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Serverdə session saxlamırıq (JWT təməli)
