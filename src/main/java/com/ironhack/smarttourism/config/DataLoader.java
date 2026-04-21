@@ -29,9 +29,7 @@ public class DataLoader implements CommandLineRunner {
         admin.setEmail(adminEmail);
         admin.setPassword(passwordEncoder.encode("admin123")); // şifrə
         admin.setPhone("0500000000");
-        admin.setActive(true);
         admin.setRole(RoleName.ADMIN);
-
         userRepository.save(admin);
 
         System.out.println("✅ Admin user created: admin@smarttourism.com / admin123");
