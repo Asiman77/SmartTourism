@@ -16,6 +16,15 @@ public class AgencyService {
 
     private final AgencyRepository agencyRepository;
 
+    public Agency updateAgencyStatus(Long agencyId, AgencyStatus status) {
+        Agency agency = agencyRepository.findById(agencyId)
+                .orElseThrow(() -> new RuntimeException("Agency tapılmadı"));
+
+        agency.setStatus(status);
+
+        return agencyRepository.save(agency);
+    }
+
     public Agency getAgencyProfileByUserId(Long userId) {
         return agencyRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency profile not found"));
