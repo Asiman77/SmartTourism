@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/agencies")
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminAgencyController {
 
     private final AgencyService agencyService;
     private final AgencyMapper agencyMapper;
