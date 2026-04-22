@@ -3,10 +3,8 @@ package com.ironhack.smarttourism.dto.response;
 import lombok.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Builder
 public class CategoryResponseDTO {
 
     private Long id;

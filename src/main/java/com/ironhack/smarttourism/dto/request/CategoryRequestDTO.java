@@ -3,10 +3,7 @@ package com.ironhack.smarttourism.dto.request;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class CategoryRequestDTO {
 
     @NotBlank(message = "Category name is required")
