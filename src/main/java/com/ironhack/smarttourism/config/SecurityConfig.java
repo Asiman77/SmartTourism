@@ -2,6 +2,8 @@ package com.ironhack.smarttourism.config;
 
 import com.ironhack.smarttourism.filter.JwtAuthenticationFilter;
 import com.ironhack.smarttourism.service.LogoutService;
+import com.ironhack.smarttourism.service.CustomOAuth2UserService;
+import com.ironhack.smarttourism.config.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +28,8 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutService logoutHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2SuccessHandler oauth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -45,6 +49,12 @@ public class SecurityConfig {
                         .requestMatchers("/api/agency/**").hasAnyRole("ADMIN", "AGENCY")
                         .requestMatchers("/api/destinations/**").hasAnyRole("ADMIN" , "AGENCY" )
                         .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(oauth2SuccessHandler)
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Serverdə session saxlamırıq (JWT təməli)
