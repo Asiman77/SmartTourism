@@ -1,15 +1,14 @@
 package com.ironhack.smarttourism.dto.response;
 
-import com.ironhack.smarttourism.entity.enums.TourStatus;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class TourPackageResponseDTO {
+public class TourResponseDTO {
 
     private Long id;
     private String title;
@@ -20,7 +19,7 @@ public class TourPackageResponseDTO {
     private String meetingPoint;
     private String includedServices;
     private String excludedServices;
-    private TourStatus status;
+    private String status;
 
     private Long agencyId;
     private String agencyName;
