@@ -19,6 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
+
+//"/api/destinations permitted to agency"
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;

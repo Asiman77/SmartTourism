@@ -11,6 +11,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
+//modified put - > patch
 @RestController
 @RequestMapping("/api/tours")
 @RequiredArgsConstructor

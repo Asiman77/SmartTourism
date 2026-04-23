@@ -4,6 +4,8 @@ import com.ironhack.smarttourism.dto.response.TourResponseDTO;
 import com.ironhack.smarttourism.entity.TourPackage;
 import org.springframework.stereotype.Component;
 
+
+//test
 @Component
 public class TourMapper {
 

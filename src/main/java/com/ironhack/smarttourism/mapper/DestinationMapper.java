@@ -3,6 +3,8 @@ package com.ironhack.smarttourism.mapper;
 import com.ironhack.smarttourism.dto.response.DestinationResponseDTO;
 import com.ironhack.smarttourism.entity.Destination;
 
+
+//DestinationMapper
 public class DestinationMapper {
 
     public static DestinationResponseDTO toResponse(Destination destination){
