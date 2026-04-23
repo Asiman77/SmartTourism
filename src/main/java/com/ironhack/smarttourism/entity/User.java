@@ -39,6 +39,12 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private RoleName role;
 
+    @Column(nullable = false)
+    private boolean enabled = false; // Yeni qeydiyyatda həmişə false olsun
+
+    @Column(unique = true)
+    private String emailVerificationToken;
+
     @OneToOne(mappedBy = "user" , fetch = FetchType.LAZY)
     private Agency agency;
 
@@ -72,6 +78,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return this.enabled;
     }
 }

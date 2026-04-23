@@ -28,6 +28,7 @@ public class DataLoader implements CommandLineRunner {
         admin.setFullName("System Admin");
         admin.setEmail(adminEmail);
         admin.setPassword(passwordEncoder.encode("admin123")); // şifrə
+        admin.setEnabled(true);
         admin.setPhone("0500000000");
         admin.setRole(RoleName.ADMIN);
         userRepository.save(admin);

@@ -28,6 +28,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
     private final AgencyRepository agencyRepository;
+    private final EmailVerificationService emailVerificationService;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -38,6 +39,7 @@ public class AuthenticationService {
         user.setRole(request.role());
 
         var savedUser = userRepository.save(user);
+        emailVerificationService.sendVerificationEmail(savedUser);
 
         if (request.role() == RoleName.AGENCY) {
 
