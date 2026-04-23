@@ -1,7 +1,6 @@
 package com.ironhack.smarttourism.mapper;
 
 import com.ironhack.smarttourism.dto.response.TourResponseDTO;
-import com.ironhack.smarttourism.dto.response.TourResponseDTO;
 import com.ironhack.smarttourism.entity.TourPackage;
 import org.springframework.stereotype.Component;
 
