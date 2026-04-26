@@ -11,15 +11,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.List;
 
-//modified put - > patch
 @RestController
 @RequestMapping("/api/tours")
 @RequiredArgsConstructor
 public class TourController {
 
     private final TourService service;
-
     private final TourMapper tourMapper;
 
     @PostMapping
@@ -28,21 +28,17 @@ public class TourController {
             @RequestBody @Valid TourRequestDTO dto
     ) {
         TourPackage tour = service.create(userId, dto);
-        TourResponseDTO response = tourMapper.toResponse(tour);
-
-        return new ApiResponse<>(true, "Created", response);
+        return new ApiResponse<>(true, "Created", tourMapper.toResponse(tour));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ApiResponse<TourResponseDTO> update(
             @RequestParam Long userId,
             @PathVariable Long id,
             @RequestBody @Valid TourRequestDTO dto
     ) {
-        TourPackage updatedTour = service.update(userId, id, dto);
-        TourResponseDTO response = tourMapper.toResponse(updatedTour);
-
-        return new ApiResponse<>(true, "Updated", response);
+        TourPackage updated = service.update(userId, id, dto);
+        return new ApiResponse<>(true, "Updated", tourMapper.toResponse(updated));
     }
 
     @DeleteMapping("/{id}")
@@ -55,14 +51,34 @@ public class TourController {
     }
 
     @PatchMapping("/{id}/status")
-    public ApiResponse<TourResponseDTO> status(
+    public ApiResponse<TourResponseDTO> changeStatus(
             @RequestParam Long userId,
             @PathVariable Long id,
             @RequestBody @Valid TourStatusRequest dto
     ) {
-        TourPackage updatedTour = service.changeStatus(userId, id, dto.getStatus());
-        TourResponseDTO response = tourMapper.toResponse(updatedTour);
+        TourPackage updated = service.changeStatus(userId, id, dto.getStatus());
+        return new ApiResponse<>(true, "Status updated", tourMapper.toResponse(updated));
+    }
 
-        return new ApiResponse<>(true, "Status updated", response);
+    // 🔥 FILTER ENDPOINT
+    @GetMapping
+    public ApiResponse<List<TourResponseDTO>> getAll(
+            @RequestParam(required = false) Long destinationId,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String keyword
+    ) {
+        List<TourResponseDTO> response = service.getAll(
+                destinationId,
+                categoryId,
+                minPrice,
+                maxPrice,
+                status,
+                keyword
+        ).stream().map(tourMapper::toResponse).toList();
+
+        return new ApiResponse<>(true, "Tours fetched", response);
     }
 }

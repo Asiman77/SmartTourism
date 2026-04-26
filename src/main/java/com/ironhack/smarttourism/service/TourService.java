@@ -10,6 +10,9 @@ import com.ironhack.smarttourism.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TourService {
@@ -92,5 +95,30 @@ public class TourService {
 
         tour.setStatus(TourStatus.valueOf(status));
         return tourRepo.save(tour);
+    }
+
+    // 🔥 FILTER LOGIC
+    public List<TourPackage> getAll(
+            Long destinationId,
+            Long categoryId,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            String status,
+            String keyword
+    ) {
+        TourStatus tourStatus = null;
+
+        if (status != null && !status.isBlank()) {
+            tourStatus = TourStatus.valueOf(status.toUpperCase());
+        }
+
+        return tourRepo.filterTours(
+                destinationId,
+                categoryId,
+                minPrice,
+                maxPrice,
+                tourStatus,
+                keyword
+        );
     }
 }
