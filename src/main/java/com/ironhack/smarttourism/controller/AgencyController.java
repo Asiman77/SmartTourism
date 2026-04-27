@@ -19,22 +19,39 @@ public class AgencyController {
     private final AgencyService agencyService;
     private final AgencyMapper agencyMapper;
 
-    @GetMapping("/profile/{userId}")
-    public ApiResponse<AgencyResponseDTO> getAgencyProfile(@PathVariable Long userId) {
-        Agency agency = agencyService.getAgencyProfileByUserId(userId);
-        return new ApiResponse<>(true, "Agency profile fetched successfully", agencyMapper.toResponse(agency));
+
+    @GetMapping("/profile/my")
+    public ApiResponse<AgencyResponseDTO> getMyProfile() {
+        Agency agency = agencyService.getMyAgencyProfile();
+
+        return new ApiResponse<>(
+                true,
+                "Agency profile fetched successfully",
+                agencyMapper.toResponse(agency)
+        );
     }
 
-    @PutMapping("/profile/{userId}")
-    public ApiResponse<AgencyResponseDTO> updateAgencyProfile(@PathVariable Long userId,
-                                                              @RequestBody @Valid AgencyRequestDTO request) {
-        Agency updatedAgency = agencyService.updateAgencyProfile(userId, request);
-        return new ApiResponse<>(true, "Agency profile updated successfully", agencyMapper.toResponse(updatedAgency));
+    @PutMapping("/profile/my")
+    public ApiResponse<AgencyResponseDTO> updateMyProfile(
+            @RequestBody @Valid AgencyRequestDTO request) {
+
+        Agency updated = agencyService.updateMyAgencyProfile(request);
+
+        return new ApiResponse<>(
+                true,
+                "Agency profile updated successfully",
+                agencyMapper.toResponse(updated)
+        );
     }
 
-    @GetMapping("/status/{userId}")
-    public ApiResponse<String> getAgencyStatus(@PathVariable Long userId) {
-        AgencyStatus status = agencyService.getAgencyStatusByUserId(userId);
-        return new ApiResponse<>(true, "Agency status fetched successfully", status.name());
+    @GetMapping("/status/my")
+    public ApiResponse<String> getMyStatus() {
+        AgencyStatus status = agencyService.getMyAgencyStatus();
+
+        return new ApiResponse<>(
+                true,
+                "Agency status fetched successfully",
+                status.name()
+        );
     }
 }

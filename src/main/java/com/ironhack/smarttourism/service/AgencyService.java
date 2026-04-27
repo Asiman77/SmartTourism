@@ -1,5 +1,6 @@
 package com.ironhack.smarttourism.service;
 
+import com.ironhack.smarttourism.config.SecurityUtils;
 import com.ironhack.smarttourism.dto.request.AgencyRequestDTO;
 import com.ironhack.smarttourism.entity.Agency;
 import com.ironhack.smarttourism.entity.enums.AgencyStatus;
@@ -15,22 +16,22 @@ import java.util.List;
 public class AgencyService {
 
     private final AgencyRepository agencyRepository;
+    private final SecurityUtils securityUtils;
 
-    public Agency updateAgencyStatus(Long agencyId, AgencyStatus status) {
-        Agency agency = agencyRepository.findById(agencyId)
-                .orElseThrow(() -> new RuntimeException("Agency tapılmadı"));
+    // ========================
+    // AGENCY (SELF)
+    // ========================
 
-        agency.setStatus(status);
+    public Agency getMyAgencyProfile() {
+        Long userId = securityUtils.getCurrentUserId();
 
-        return agencyRepository.save(agency);
-    }
-
-    public Agency getAgencyProfileByUserId(Long userId) {
         return agencyRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency profile not found"));
     }
 
-    public Agency updateAgencyProfile(Long userId, AgencyRequestDTO request) {
+    public Agency updateMyAgencyProfile(AgencyRequestDTO request) {
+        Long userId = securityUtils.getCurrentUserId();
+
         Agency agency = agencyRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency profile not found"));
 
@@ -43,12 +44,18 @@ public class AgencyService {
         return agencyRepository.save(agency);
     }
 
-    public AgencyStatus getAgencyStatusByUserId(Long userId) {
+    public AgencyStatus getMyAgencyStatus() {
+        Long userId = securityUtils.getCurrentUserId();
+
         Agency agency = agencyRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency profile not found"));
 
         return agency.getStatus();
     }
+
+    // ========================
+    // ADMIN
+    // ========================
 
     public List<Agency> getAllAgencies() {
         return agencyRepository.findAll();
@@ -58,11 +65,11 @@ public class AgencyService {
         return agencyRepository.findByStatus(status);
     }
 
-    public Agency approveAgency(Long agencyId) {
+    public Agency updateAgencyStatus(Long agencyId, AgencyStatus status) {
         Agency agency = agencyRepository.findById(agencyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Agency not found"));
 
-        agency.setStatus(AgencyStatus.APPROVED);
+        agency.setStatus(status);
         return agencyRepository.save(agency);
     }
 
