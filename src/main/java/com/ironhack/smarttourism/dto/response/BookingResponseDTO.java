@@ -1,30 +1,20 @@
 package com.ironhack.smarttourism.dto.response;
 
 import com.ironhack.smarttourism.entity.enums.BookingStatus;
-import lombok.*;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class BookingResponseDTO {
-
     private Long id;
-
     private Long userId;
-    private String userFullName;
-
+    private String userName;
     private Long tourPackageId;
-    private String tourPackageTitle;
-    private BigDecimal tourPackagePrice;
-
+    private String tourPackageName;
     private Integer personsCount;
     private BigDecimal totalPrice;
     private LocalDateTime bookingDate;
     private BookingStatus status;
-
-    private LocalDateTime createdAt;
 }
