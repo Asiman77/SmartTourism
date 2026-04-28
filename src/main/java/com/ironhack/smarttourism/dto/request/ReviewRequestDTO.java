@@ -1,22 +1,20 @@
 package com.ironhack.smarttourism.dto.request;
 
 import jakarta.validation.constraints.*;
-import lombok.*;
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ReviewRequestDTO {
 
-    @NotNull(message = "Tour Package ID is required")
-    private Long tourPackageId;
-
-    @NotNull(message = "Rating is required")
-    @Min(value = 1, message = "Rating must be at least 1")
-    @Max(value = 5, message = "Rating must be at most 5")
+    @NotNull
+    @Min(1) @Max(5)
     private Integer rating;
 
+    @Size(max = 1000)
     private String comment;
+
+    @NotNull
+    private Long tourPackageId;
 }
