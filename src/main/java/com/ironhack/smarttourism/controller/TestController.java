@@ -8,38 +8,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
-
-    // 1. Hamı üçün açıqdır (Hətta login olmayanlar üçün)
+    //everyone can access
     @GetMapping("/all")
     public String publicEndpoint() {
-        return "Bu endpoint hamı üçün açıqdır.";
+        return "This endpoint is accessible for everyone";
     }
 
-    // 2. Sadece ADMIN daxil ola bilər
+    //for admin only
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public String adminOnly() {
-        return "Xoş gəldin Admin! Sən bütün sistemi idarə edə bilərsən.";
+        return "Welcome, Admin! You can control the whole system!";
     }
 
-    // 3. Sadece AGENCY daxil ola bilər
+    //for agency only
     @GetMapping("/agency")
     @PreAuthorize("hasRole('AGENCY')")
     public String agencyOnly() {
-        return "Xoş gəldin Agentlik! Sən öz turlarını və rezervasiyalarını görürsən.";
+        return "Welcome, Agency! You can see your own tours and reservations!";
     }
 
-    // 4. Sadece USER (Sıravi müştəri) daxil ola bilər
+    //for user only
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER')")
     public String userOnly() {
-        return "Xoş gəldin İstifadəçi! Sən turlara baxa və sifariş verə bilərsən.";
+        return "Welcome User! You can look at tours,and book them!";
     }
 
-    // 5. Həm ADMIN, həm də AGENCY daxil ola bilər
+    // both admin and agency can access
     @GetMapping("/shared")
     @PreAuthorize("hasAnyRole('ADMIN', 'AGENCY')")
     public String sharedEndpoint() {
-        return "Bu mesajı həm Adminlər, həm də Agentliklər görə bilər.";
+        return "This message can be seen by both Admin and Agencies!";
     }
 }

@@ -29,17 +29,17 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
-    // Email doğrulama
+    // Email verification
     @GetMapping("/verify-email")
     public ResponseEntity<Map<String, String>> verifyEmail(@RequestParam String token) {
         emailVerificationService.verifyEmail(token);
-        return ResponseEntity.ok(Map.of("message", "Email uğurla doğrulandı!"));
+        return ResponseEntity.ok(Map.of("message", "Email verified successfully!"));
     }
 
-    // Yenidən göndər
+
     @PostMapping("/resend-verification")
     public ResponseEntity<Map<String, String>> resendVerification(@RequestParam String email) {
         emailVerificationService.resendVerificationEmail(email);
-        return ResponseEntity.ok(Map.of("message", "Doğrulama emaili yenidən göndərildi"));
+        return ResponseEntity.ok(Map.of("message", "Verification email was resent"));
     }
 }
