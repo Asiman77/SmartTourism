@@ -38,10 +38,10 @@ public class BookingService {
     @Transactional
     public BookingResponseDTO createBooking(BookingRequestDTO requestDTO) {
         User user = userRepository.findById(requestDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found: " + requestDTO.getUserId()));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + requestDTO.getUserId()));
 
         TourPackage tourPackage = tourPackageRepository.findById(requestDTO.getTourPackageId())
-                .orElseThrow(() -> new RuntimeException("Tour package not found: " + requestDTO.getTourPackageId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Tour package not found: " + requestDTO.getTourPackageId()));
 
         BigDecimal totalPrice = tourPackage.getPrice()
                 .multiply(BigDecimal.valueOf(requestDTO.getPersonsCount()));
@@ -70,7 +70,7 @@ public class BookingService {
     @Transactional(readOnly = true)
     public BookingResponseDTO getBookingById(Long id) {
         Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Booking not found: " + id));
 
         return bookingMapper.toResponseDTO(booking);
     }
@@ -78,7 +78,7 @@ public class BookingService {
     @Transactional
     public BookingResponseDTO cancelBooking(Long id) {
         Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Booking not found: " + id));
 
         if (booking.getStatus() == BookingStatus.CANCELLED) {
             throw new IllegalStateException("Booking is already cancelled");
