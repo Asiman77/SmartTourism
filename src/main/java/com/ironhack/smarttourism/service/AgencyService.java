@@ -53,10 +53,6 @@ public class AgencyService {
         return agency.getStatus();
     }
 
-    // ========================
-    // ADMIN
-    // ========================
-
     public List<Agency> getAllAgencies() {
         return agencyRepository.findAll();
     }
