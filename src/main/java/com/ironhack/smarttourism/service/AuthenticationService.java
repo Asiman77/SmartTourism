@@ -44,7 +44,7 @@ public class AuthenticationService {
         if (request.role() == RoleName.AGENCY) {
 
             if (request.agencyName() == null || request.agencyAddress() == null) {
-                throw new RuntimeException("Agency məlumatları tam deyil");
+                throw new RuntimeException("Agency information is missing");
             }
 
             Agency agency = new Agency();
@@ -73,14 +73,14 @@ public class AuthenticationService {
         );
 
         var user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("İstifadəçi tapılmadı"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (user.getRole() == RoleName.AGENCY) {
             Agency agency = agencyRepository.findByUser(user)
-                    .orElseThrow(() -> new RuntimeException("Agency tapılmadı"));
+                    .orElseThrow(() -> new RuntimeException("Agency not found"));
 
             if (agency.getStatus() != AgencyStatus.APPROVED) {
-                throw new RuntimeException("Agency təsdiqlənməyib");
+                throw new RuntimeException("Agency isn't approved yet");
             }
         }
 
