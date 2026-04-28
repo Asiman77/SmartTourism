@@ -1,7 +1,6 @@
 package com.ironhack.smarttourism.entity;
 
 
-import com.ironhack.smarttourism.entity.enums.AgencyStatus;
 import com.ironhack.smarttourism.entity.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,7 +39,7 @@ public class User extends BaseEntity implements UserDetails {
     private RoleName role;
 
     @Column(nullable = false)
-    private boolean enabled = false; // Yeni qeydiyyatda həmişə false olsun
+    private boolean enabled = false; // Always false in new register
 
     @Column(unique = true)
     private String emailVerificationToken;

@@ -83,7 +83,7 @@ class EmailVerificationServiceTest {
                 () -> emailVerificationService.verifyEmail("bad-token")
         );
 
-        assertEquals("Yanlış və ya köhnəlmiş token", exception.getMessage());
+        assertEquals("Wrong or Old Token", exception.getMessage());
     }
 
     @Test
@@ -99,7 +99,7 @@ class EmailVerificationServiceTest {
                 () -> emailVerificationService.verifyEmail("token123")
         );
 
-        assertEquals("Email artıq doğrulanmışdır", exception.getMessage());
+        assertEquals("Email has already been verified", exception.getMessage());
     }
 
     @Test
@@ -128,7 +128,7 @@ class EmailVerificationServiceTest {
                 () -> emailVerificationService.resendVerificationEmail("user@test.com")
         );
 
-        assertEquals("İstifadəçi tapılmadı", exception.getMessage());
+        assertEquals("User not found", exception.getMessage());
     }
 
     @Test
@@ -143,6 +143,6 @@ class EmailVerificationServiceTest {
                 () -> emailVerificationService.resendVerificationEmail("user@test.com")
         );
 
-        assertEquals("Email artıq doğrulanmışdır", exception.getMessage());
+        assertEquals("Email has already been verified", exception.getMessage());
     }
 }

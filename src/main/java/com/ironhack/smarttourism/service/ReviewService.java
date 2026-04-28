@@ -35,7 +35,7 @@ public class ReviewService {
     public ReviewResponseDTO createReview(ReviewRequestDTO dto) {
         Long userId = securityUtils.getCurrentUserId();
 
-        // Yalnız booking etmiş user review yaza bilər
+        // Only the user that has booked can write review
         boolean hasBooking = bookingRepository.existsByUserIdAndTourPackageId(
                 userId, dto.getTourPackageId()
         );
@@ -43,7 +43,7 @@ public class ReviewService {
             throw new ForbiddenException("You can only review tours you have booked");
         }
 
-        // Eyni tour üçün ikinci dəfə review yazmasın
+        // Can't write review for the same tour twice
         boolean alreadyReviewed = reviewRepository.existsByUserIdAndTourPackageId(
                 userId, dto.getTourPackageId()
         );

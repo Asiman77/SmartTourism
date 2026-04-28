@@ -1,16 +1,15 @@
 package com.ironhack.smarttourism.entity;
 
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class EmailOptions {
-    private String fromEmail;   // Göndərən mail (Mailtrap-da təsdiqlənmiş domain)
-    private String fromName;    // Göndərən adı
-    private String toEmail;     // Alıcı mail
-    private String subject;     // Mövzu
-    private String html;        // HTML formatında mesaj (Bizim link bura gedir)
-    private String text;        // Sadə mətn formatında mesaj
+    private String fromEmail;   // Sender mail (A domain that has been verified in "Mailtrap")
+    private String fromName;    // Sender adı
+    private String toEmail;     // Receiver mail
+    private String subject;     // subject
+    private String html;        // message in HTML format  (Our link goes there)
+    private String text;        // message in text format
 
-    // SDK-nın versiyasına görə əlavə olaraq attachments və ya category ola bilər
+    // Depending on version of SDK , there might be extra attachments or category
 }

@@ -22,8 +22,8 @@ public class Token {
     @Enumerated(EnumType.STRING)
     private TokenType tokenType = TokenType.BEARER;
 
-    private boolean revoked; // Ləğv edilibmi?
-    private boolean expired; // Vaxtı bitibmi?
+    private boolean revoked; // has it been removed?
+    private boolean expired; // has it run out of time?
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -29,10 +29,10 @@ public class EmailVerificationService {
     @Transactional
     public void verifyEmail(String token) {
         User user = userRepository.findByEmailVerificationToken(token)
-                .orElseThrow(() -> new RuntimeException("Yanlış və ya köhnəlmiş token"));
+                .orElseThrow(() -> new RuntimeException("Wrong or Old Token"));
 
         if (user.isEnabled()) {
-            throw new RuntimeException("Email artıq doğrulanmışdır");
+            throw new RuntimeException("Email has already been verified ");
         }
 
         user.setEnabled(true);
@@ -45,10 +45,10 @@ public class EmailVerificationService {
     @Transactional
     public void resendVerificationEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("İstifadəçi tapılmadı"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (user.isEnabled()) {
-            throw new RuntimeException("Email artıq doğrulanmışdır");
+            throw new RuntimeException("Email has already been verified");
         }
 
         sendVerificationEmail(user);

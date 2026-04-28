@@ -36,14 +36,14 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String email = oAuth2User.getAttribute("email");
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User tapılmadı"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         String jwt = jwtService.generateToken(user);
 
-        // Köhnə tokenləri revoke et
+        // revoke old tokens
         revokeAllUserTokens(user);
 
-        // Yeni tokeni DB-yə save et
+        // save new token to DB
         saveUserToken(user, jwt);
 
         response.setContentType("application/json");
