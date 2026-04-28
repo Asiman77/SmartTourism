@@ -129,6 +129,6 @@ class AuthenticationServiceTest {
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> authService.authenticate(authRequest));
 
-        assertEquals("Agency isn't approvet yet", exception.getMessage());
+        assertEquals("Agency isn't approved yet", exception.getMessage());
     }
 }

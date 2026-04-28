@@ -77,10 +77,10 @@ public class AuthenticationService {
 
         if (user.getRole() == RoleName.AGENCY) {
             Agency agency = agencyRepository.findByUser(user)
-                    .orElseThrow(() -> new RuntimeException("Agency tapılmadı"));
+                    .orElseThrow(() -> new RuntimeException("Agency isn't approved yet"));
 
             if (agency.getStatus() != AgencyStatus.APPROVED) {
-                throw new RuntimeException("Agency təsdiqlənməyib");
+                throw new RuntimeException("Agency isn't approved yet");
             }
         }
 
