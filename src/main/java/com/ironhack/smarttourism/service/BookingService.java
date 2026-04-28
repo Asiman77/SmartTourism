@@ -2,11 +2,14 @@ package com.ironhack.smarttourism.service;
 
 import com.ironhack.smarttourism.dto.request.BookingRequestDTO;
 import com.ironhack.smarttourism.dto.response.BookingResponseDTO;
+import com.ironhack.smarttourism.entity.Agency;
 import com.ironhack.smarttourism.entity.Booking;
 import com.ironhack.smarttourism.entity.TourPackage;
 import com.ironhack.smarttourism.entity.User;
 import com.ironhack.smarttourism.entity.enums.BookingStatus;
+import com.ironhack.smarttourism.exception.ResourceNotFoundException;
 import com.ironhack.smarttourism.mapper.BookingMapper;
+import com.ironhack.smarttourism.repository.AgencyRepository;
 import com.ironhack.smarttourism.repository.BookingRepository;
 import com.ironhack.smarttourism.repository.TourPackageRepository;
 import com.ironhack.smarttourism.repository.UserRepository;
@@ -14,6 +17,7 @@ import com.ironhack.smarttourism.config.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,6 +33,7 @@ public class BookingService {
     private final TourPackageRepository tourPackageRepository;
     private final BookingMapper bookingMapper;
     private final SecurityUtils securityUtils;
+    private final AgencyRepository agencyRepository;
 
     @Transactional
     public BookingResponseDTO createBooking(BookingRequestDTO requestDTO) {
@@ -85,5 +90,35 @@ public class BookingService {
 
         booking.setStatus(BookingStatus.CANCELLED);
         return bookingMapper.toResponseDTO(bookingRepository.save(booking));
+    }
+
+    @Transactional(readOnly = true)
+    public List<BookingResponseDTO> getBookingsByAgency() {
+        Long userId = securityUtils.getCurrentUserId();
+
+        Agency agency = agencyRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Agency profile not found"));
+
+        return bookingRepository.findByTourPackageAgencyId(agency.getId())
+                .stream()
+                .map(bookingMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public BookingResponseDTO getBookingByIdForAgency(Long bookingId) {
+        Long userId = securityUtils.getCurrentUserId();
+
+        Agency agency = agencyRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Agency profile not found"));
+
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking not found: " + bookingId));
+
+        if (booking.getTourPackage().getAgency().getId() != agency.getId()) {
+            throw new AccessDeniedException("You do not have access to this booking");
+        }
+
+        return bookingMapper.toResponseDTO(booking);
     }
 }
