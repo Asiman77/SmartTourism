@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGeneric(Exception ex) {
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR) //500 -Internal server eror
+                .status(HttpStatus.INTERNAL_SERVER_ERROR) //500 -Internal server error
                 .body(new ApiResponse<>(false, ex.getMessage(), null));
     }
 }

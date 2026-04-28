@@ -21,13 +21,13 @@ public class DataLoader implements CommandLineRunner {
         String adminEmail = "admin@smarttourism.com";
 
         if (userRepository.existsByEmail(adminEmail)) {
-            return; // artıq varsa heç nə etmir
+            return; // if there is email already,doesn't do anything
         }
 
         User admin = new User();
         admin.setFullName("System Admin");
         admin.setEmail(adminEmail);
-        admin.setPassword(passwordEncoder.encode("admin123")); // şifrə
+        admin.setPassword(passwordEncoder.encode("admin123")); // password
         admin.setEnabled(true);
         admin.setPhone("0500000000");
         admin.setRole(RoleName.ADMIN);

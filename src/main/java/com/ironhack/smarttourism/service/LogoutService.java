@@ -33,12 +33,12 @@ public class LogoutService implements LogoutHandler {
                 .orElse(null);
 
         if (storedToken != null) {
-            // Tokeni bazada ləğv edirik
+            // We remove token in base
             storedToken.setExpired(true);
             storedToken.setRevoked(true);
             tokenRepository.save(storedToken);
 
-            // Security context-i təmizləyirik
+            // We clear security context
             SecurityContextHolder.clearContext();
         }
     }

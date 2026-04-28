@@ -15,8 +15,8 @@ public class SecurityUtils {
             throw new RuntimeException("No authenticated user found");
         }
 
-        // Principal-i User entity-sinə cast edirik
-        // UserDetailsService-də loadUserByUsername User entity-ni qaytarmalıdır
+        // We cast Principal to User entity
+        // loadUserByUsername should return User entity in UserDetailsService
         return (User) authentication.getPrincipal();
     }
 

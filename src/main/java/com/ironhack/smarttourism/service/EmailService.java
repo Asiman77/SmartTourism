@@ -50,13 +50,13 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom(fromEmail);
             helper.setTo(toEmail);
-            helper.setSubject("Email Doğrulama - Smart Tourism");
+            helper.setSubject("Email Verification - Smart Tourism");
             helper.setText(html, true);
             mailSender.send(message);
             log.info("Verification email sent to: {}", toEmail);
         } catch (Exception e) {
             log.error("Failed to send email to {}: {}", toEmail, e.getMessage());
-            throw new RuntimeException("Email göndərilə bilmədi: " + e.getMessage());
+            throw new RuntimeException("Email couldn't sent: " + e.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom(fromEmail);
             helper.setTo(toEmail);
-            helper.setSubject("Xoş gəldiniz! - Smart Tourism");
+            helper.setSubject("Welcome! - Smart Tourism");
             helper.setText(html, true);
             mailSender.send(message);
             log.info("Welcome email sent to: {}", toEmail);
