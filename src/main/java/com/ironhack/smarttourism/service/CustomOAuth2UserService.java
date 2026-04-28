@@ -24,14 +24,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
 
-        // User yoxdursa yarat
         userRepository.findByEmail(email).orElseGet(() -> {
             User newUser = new User();
             newUser.setEmail(email);
             newUser.setFullName(name);
-            newUser.setPassword(""); // OAuth user-in şifrəsi olmur
+            newUser.setPassword("");
             newUser.setRole(RoleName.USER);
-            newUser.setEnabled(true); // Google artıq verify edib
+            newUser.setEnabled(true);
             return userRepository.save(newUser);
         });
 
