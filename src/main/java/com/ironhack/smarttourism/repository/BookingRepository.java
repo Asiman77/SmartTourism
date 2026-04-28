@@ -12,4 +12,7 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     List<Booking>findByTourPackageAgencyId (Long agencyId);
 
     List<Booking>findByTourPackageIdAndStatus(Long tourPackageId, BookingStatus status);
+
+    boolean existsByUserIdAndTourPackageId(Long userId, Long tourPackageId);
+
 }
