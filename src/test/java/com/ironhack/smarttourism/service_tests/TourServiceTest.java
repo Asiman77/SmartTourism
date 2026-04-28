@@ -53,11 +53,16 @@ class TourServiceTest {
 
     @Test
     void create_ShouldWork() {
-        when(agencyRepo.findByUserId(anyLong())).thenReturn(Optional.of(sampleAgency));
-        when(categoryRepo.findById(anyLong())).thenReturn(Optional.of(new Category()));
-        when(destinationRepo.findById(anyLong())).thenReturn(Optional.of(new Destination()));
+        TourRequestDTO dto = new TourRequestDTO();
+        dto.setCategoryId(1L);
+        dto.setDestinationId(1L);
 
-        tourService.create(1L, new TourRequestDTO());
+        when(agencyRepo.findByUserId(1L)).thenReturn(Optional.of(sampleAgency));
+        when(categoryRepo.findById(1L)).thenReturn(Optional.of(new Category()));
+        when(destinationRepo.findById(1L)).thenReturn(Optional.of(new Destination()));
+        when(tourRepo.save(any(TourPackage.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        tourService.create(1L, dto);
 
         verify(tourRepo).save(any(TourPackage.class));
     }
