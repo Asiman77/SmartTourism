@@ -1,4 +1,4 @@
-package com.ironhack.smarttourism.config;
+package com.ironhack.smarttourism.service;
 
 import com.ironhack.smarttourism.entity.User;
 import org.springframework.security.core.Authentication;

@@ -1,9 +1,8 @@
-package com.ironhack.smarttourism.config;
+package com.ironhack.smarttourism.security;
 
-import com.ironhack.smarttourism.filter.JwtAuthenticationFilter;
+import com.ironhack.smarttourism.security.filter.JwtAuthenticationFilter;
 import com.ironhack.smarttourism.service.LogoutService;
 import com.ironhack.smarttourism.service.CustomOAuth2UserService;
-import com.ironhack.smarttourism.config.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

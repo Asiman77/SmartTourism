@@ -1,6 +1,6 @@
 package com.ironhack.smarttourism.service_tests;
 
-import com.ironhack.smarttourism.config.SecurityUtils;
+import com.ironhack.smarttourism.service.SecurityUtils;
 import com.ironhack.smarttourism.dto.request.BookingRequestDTO;
 import com.ironhack.smarttourism.dto.response.BookingResponseDTO;
 import com.ironhack.smarttourism.entity.Booking;

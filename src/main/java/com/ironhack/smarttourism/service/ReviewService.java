@@ -1,6 +1,5 @@
 package com.ironhack.smarttourism.service;
 
-import com.ironhack.smarttourism.config.SecurityUtils;
 import com.ironhack.smarttourism.dto.request.ReviewRequestDTO;
 import com.ironhack.smarttourism.dto.response.ReviewResponseDTO;
 import com.ironhack.smarttourism.entity.Review;

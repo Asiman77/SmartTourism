@@ -13,7 +13,6 @@ import com.ironhack.smarttourism.repository.AgencyRepository;
 import com.ironhack.smarttourism.repository.BookingRepository;
 import com.ironhack.smarttourism.repository.TourPackageRepository;
 import com.ironhack.smarttourism.repository.UserRepository;
-import com.ironhack.smarttourism.config.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

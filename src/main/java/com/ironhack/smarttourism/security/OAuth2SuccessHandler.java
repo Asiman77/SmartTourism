@@ -1,4 +1,4 @@
-package com.ironhack.smarttourism.config;
+package com.ironhack.smarttourism.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ironhack.smarttourism.entity.Token;

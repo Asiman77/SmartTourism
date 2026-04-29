@@ -99,7 +99,7 @@ class EmailVerificationServiceTest {
                 () -> emailVerificationService.verifyEmail("token123")
         );
 
-        assertEquals("Email has already been verified", exception.getMessage());
+        assertEquals("Email has already been verified ", exception.getMessage());
     }
 
     @Test

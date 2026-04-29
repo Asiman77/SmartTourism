@@ -1,6 +1,5 @@
 package com.ironhack.smarttourism.service;
 
-import com.ironhack.smarttourism.config.SecurityUtils;
 import com.ironhack.smarttourism.dto.request.AgencyRequestDTO;
 import com.ironhack.smarttourism.entity.Agency;
 import com.ironhack.smarttourism.entity.enums.AgencyStatus;

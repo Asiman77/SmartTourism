@@ -1,4 +1,4 @@
-package com.ironhack.smarttourism.filter;
+package com.ironhack.smarttourism.security.filter;
 
 import com.ironhack.smarttourism.repository.TokenRepository;
 import com.ironhack.smarttourism.service.JwtService;
