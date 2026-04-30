@@ -21,27 +21,34 @@
 ## API Overview
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                       SmartTourism API Structure                             │
-│                                                                              │
-│   Base URL:  http://localhost:8080                                           │
-│   Docs:      http://localhost:8080/swagger-ui.html                           │
-│   OpenAPI:   http://localhost:8080/v3/api-docs                               │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   ┌─────────────────┐  ┌──────────────────┐  ┌──────────────┐  ┌─────────┐ │
-│   │  🔓 PUBLIC       │  │  🧳 TOURIST       │  │  🏢 AGENCY   │  │ 🛡️ ADMIN│ │
-│   │  /api/auth/**    │  │  /api/bookings/** │  │  /api/agency/│  │ /api/   │ │
-│   │  /api/tours/**   │  │  /api/reviews/**  │  │             │  │ admin/  │ │
-│   │  /api/dest./**   │  │  /api/tours/**    │  │             │  │        │ │
-│   └─────────────────┘  └──────────────────┘  └──────────────┘  └─────────┘ │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐  │
-│   │  Authorization: Bearer <JWT_TOKEN>   (required for all protected)    │  │
-│   └──────────────────────────────────────────────────────────────────────┘  │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                    SmartTourism API                          │
+├──────────────────────────────────────────────────────────────┤
+│ Base URL   : http://localhost:8080                           │
+│ Swagger UI : http://localhost:8080/swagger-ui.html           │
+│ OpenAPI    : http://localhost:8080/v3/api-docs               │
+├──────────────────────────────────────────────────────────────┤
+│                         ENDPOINTS                            │
+├──────────────────────────────────────────────────────────────┤
+│ 🔓 PUBLIC                                                    │
+│   /api/auth/**                                               │
+│   /api/tours/**                                              │
+│   /api/destinations/**                                       │
+│                                                              │
+│ 🧳 TOURIST (Authenticated)                                   │
+│   /api/bookings/**                                           │
+│   /api/reviews/**                                            │
+│   /api/tours/**                                              │
+│                                                              │
+│ 🏢 AGENCY (Authenticated)                                    │
+│   /api/agency/**                                             │
+│                                                              │
+│ 🛡️ ADMIN (Authenticated)                                     │
+│   /api/admin/**                                              │
+├──────────────────────────────────────────────────────────────┤
+│ Authorization: Bearer <JWT_TOKEN>                            │
+│ (Required for all protected endpoints)                       │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
