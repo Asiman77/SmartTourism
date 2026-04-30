@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -27,6 +28,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @ExtendWith(MockitoExtension.class)
 class TourControllerTest {
@@ -46,11 +49,18 @@ class TourControllerTest {
 
     @BeforeEach
     void setUp() {
+        objectMapper.registerModule(new JavaTimeModule());
+
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         mockMvc = MockMvcBuilders.standaloneSetup(tourController).build();
     }
 
     @Test
     void create_ShouldReturnCreatedTour() throws Exception {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate nextWeek = LocalDate.now().plusWeeks(1);
+
         TourRequestDTO request = new TourRequestDTO();
         request.setTitle("Summer Adventure");
         request.setPrice(new BigDecimal("500.00"));
@@ -58,6 +68,8 @@ class TourControllerTest {
         request.setDurationDays(5);
         request.setCategoryId(1L);
         request.setDestinationId(1L);
+        request.setStartDate(tomorrow);
+        request.setEndDate(nextWeek);
 
         TourResponseDTO response = new TourResponseDTO();
         response.setId(1L);
