@@ -9,9 +9,11 @@ import com.ironhack.smarttourism.mapper.TourMapper;
 import com.ironhack.smarttourism.service.TourService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -60,7 +62,6 @@ public class TourController {
         return new ApiResponse<>(true, "Status updated", tourMapper.toResponse(updated));
     }
 
-    // 🔥 FILTER ENDPOINT
     @GetMapping
     public ApiResponse<List<TourResponseDTO>> getAll(
             @RequestParam(required = false) Long destinationId,
@@ -68,7 +69,9 @@ public class TourController {
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) String status,
-            @RequestParam(required = false) String keyword
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
     ) {
         List<TourResponseDTO> response = service.getAll(
                 destinationId,

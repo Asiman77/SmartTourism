@@ -43,6 +43,8 @@ public class TourService {
         tour.setPrice(dto.getPrice());
         tour.setCapacity(dto.getCapacity());
         tour.setDurationDays(dto.getDurationDays());
+        tour.setStartDate(dto.getStartDate());
+        tour.setEndDate(dto.getEndDate());
         tour.setMeetingPoint(dto.getMeetingPoint());
         tour.setIncludedServices(dto.getIncludedServices());
         tour.setExcludedServices(dto.getExcludedServices());
@@ -68,6 +70,8 @@ public class TourService {
         tour.setPrice(dto.getPrice());
         tour.setCapacity(dto.getCapacity());
         tour.setDurationDays(dto.getDurationDays());
+        tour.setStartDate(dto.getStartDate());
+        tour.setEndDate(dto.getEndDate());
 
         return tourRepo.save(tour);
     }

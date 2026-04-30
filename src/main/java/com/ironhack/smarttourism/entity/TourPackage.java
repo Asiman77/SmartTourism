@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tour_packages")
@@ -28,6 +29,12 @@ public class TourPackage extends BaseEntity {
 
     @Column(nullable = false)
     private Integer durationDays;
+
+    @Column(nullable = false)
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
 
     @Column(length = 255)
     private String meetingPoint;
