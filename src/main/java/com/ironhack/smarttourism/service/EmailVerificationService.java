@@ -15,7 +15,7 @@ import java.util.UUID;
 public class EmailVerificationService {
 
     private final UserRepository userRepository;
-    private final EmailService emailService;  // ← dəyişdi
+    private final EmailService emailService;  // ← changed
 
     @Transactional
     public void sendVerificationEmail(User user) {

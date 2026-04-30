@@ -28,18 +28,23 @@ public class EmailService {
                 <!DOCTYPE html>
                 <html>
                 <body style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-                    <h2 style="color: #4CAF50;">Email Doğrulama</h2>
-                    <p>Salam, <strong>%s</strong>!</p>
-                    <p>Smart Tourism platformuna qeydiyyatınız üçün təşəkkür edirik.</p>
-                    <p>Aşağıdakı düyməyə basaraq email ünvanınızı doğrulayın:</p>
+                    <h2 style="color: #4CAF50;">Email Verification</h2>
+                
+                    <p>Hello, <strong>%s</strong>!</p>
+                
+                    <p>Thank you for registering on the Smart Tourism platform.</p>
+                
+                    <p>Please click the button below to verify your email address:</p>
+                
                     <a href="%s"
                        style="background-color:#4CAF50; color:white; padding:14px 24px;
                               text-decoration:none; border-radius:4px; display:inline-block; margin: 20px 0;">
-                        ✅ Email-i Doğrula
+                        ✅ Verify Email
                     </a>
+                
                     <p style="color:#999; font-size:12px;">
-                        Bu link 24 saat ərzində keçərlidir.<br>
-                        Əgər qeydiyyatdan keçməmisinizsə, bu emaili nəzərə almayın.
+                        This link is valid for 24 hours.<br>
+                        If you did not register, please ignore this email.
                     </p>
                 </body>
                 </html>
