@@ -63,7 +63,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-    // ================= PRIVATE LOGIC =================
 
     private User findOnlyUser(Long id) {
         User user = userRepository.findById(id)
