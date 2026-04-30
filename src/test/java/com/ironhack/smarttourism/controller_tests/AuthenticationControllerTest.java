@@ -60,7 +60,7 @@ class AuthenticationControllerTest {
         );
 
         // AuthResponse bir record-dur, tokeni konstruktorda veririk:
-        AuthResponse response = new AuthResponse("mock-jwt-token");
+        AuthResponse response = new AuthResponse("mock-jwt-token", com.ironhack.smarttourism.entity.enums.RoleName.AGENCY);
 
         when(authenticationService.register(any(RegisterRequest.class))).thenReturn(response);
 
@@ -68,7 +68,8 @@ class AuthenticationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").value("mock-jwt-token"));
+                .andExpect(jsonPath("$.token").value("mock-jwt-token"))
+                .andExpect(jsonPath("$.role").value("AGENCY"));
     }
 
     @Test
@@ -77,7 +78,7 @@ class AuthenticationControllerTest {
         AuthRequest request = new AuthRequest("test@mail.com", "password");
 
         // AuthResponse record-dur:
-        AuthResponse response = new AuthResponse("login-token");
+        AuthResponse response = new AuthResponse("login-token", com.ironhack.smarttourism.entity.enums.RoleName.USER);
 
         when(authenticationService.authenticate(any(AuthRequest.class))).thenReturn(response);
 
@@ -85,7 +86,8 @@ class AuthenticationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").value("login-token"));
+                .andExpect(jsonPath("$.token").value("login-token"))
+                .andExpect(jsonPath("$.role").value("USER"));
     }
 
     @Test

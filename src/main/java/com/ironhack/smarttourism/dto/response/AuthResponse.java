@@ -1,3 +1,5 @@
 package com.ironhack.smarttourism.dto.response;
 
-public record AuthResponse(String token) {}
+import com.ironhack.smarttourism.entity.enums.RoleName;
+
+public record AuthResponse(String token, RoleName role) {}
