@@ -63,7 +63,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(savedUser);
         saveUserToken(savedUser, jwtToken);
 
-        return new AuthResponse(jwtToken);
+        return new AuthResponse(jwtToken, savedUser.getRole());
     }
 
     @Transactional
@@ -89,7 +89,7 @@ public class AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
 
-        return new AuthResponse(jwtToken);
+        return new AuthResponse(jwtToken, user.getRole());
     }
 
     private void saveUserToken(User user, String jwtToken) {
